@@ -2,6 +2,12 @@
 
 NGINX_CONTAINER := learn-nginx
 
+build-jar:
+	mvn clean package
+
+tests-run:
+	mvn test
+
 env-start:
 	NGINX_CONTAINER=$(NGINX_CONTAINER) \
 	docker-compose up -d --remove-orphans
