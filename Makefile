@@ -1,3 +1,5 @@
+.PHONY: build-jar tests-run start-db stop-db
+
 build-jar:
 	mvn clean package
 
