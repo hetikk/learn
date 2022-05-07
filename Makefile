@@ -1,7 +1,7 @@
 .PHONY: jar-build tests-run env-start env-stop db-start db-stop db-ping
 
 POSTGRES_IMAGE := postgres
-POSTGRES_CONTAINER := learn-crud-postgres
+POSTGRES_CONTAINER := learn-testcontainers
 POSTGRES_HOST := localhost
 POSTGRES_USER := learn
 POSTGRES_PASSWORD := 123456
