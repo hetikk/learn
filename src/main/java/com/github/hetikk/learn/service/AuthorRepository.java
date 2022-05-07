@@ -12,7 +12,7 @@ public interface AuthorRepository {
 
     Author create(Author author);
 
-    Author update(Long id, Author author);
+    Author update(Author author);
 
     void delete(Long id);
 

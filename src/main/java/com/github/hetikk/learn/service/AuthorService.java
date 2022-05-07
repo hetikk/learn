@@ -4,6 +4,7 @@ import com.github.hetikk.learn.model.Author;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,11 +22,14 @@ public class AuthorService {
     }
 
     public Author create(Author author) {
+        author.createdAt = LocalDateTime.now();
         return authorRepository.create(author);
     }
 
     public Author update(Long id, Author author) {
-        return authorRepository.update(id, author);
+        author.id = id;
+        Author update = authorRepository.update(author);
+        return update;
     }
 
     public void delete(Long id) {

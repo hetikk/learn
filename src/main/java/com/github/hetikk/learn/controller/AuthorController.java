@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/authors")
 public class AuthorController {
-    
+
     private final AuthorService authorService;
 
     @GetMapping("/{id}")
@@ -35,7 +35,7 @@ public class AuthorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Author create(Author author) {
+    public Author create(@RequestBody Author author) {
         return authorService.create(author);
     }
 
@@ -49,5 +49,5 @@ public class AuthorController {
     public void delete(@PathVariable Long id) {
         authorService.delete(id);
     }
-    
+
 }
