@@ -16,7 +16,7 @@ public class PostgreSQLExtension implements BeforeAllCallback, AfterAllCallback 
                 .withUsername("testcontainers")
                 .withPassword("testcontainers")
                 .withExposedPorts(5432)
-                .withReuse(false);
+                .withReuse(true);
 
         postgres.start();
 
