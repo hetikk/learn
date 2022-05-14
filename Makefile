@@ -1,13 +1,11 @@
 .PHONY: jar-build tests-run env-start env-stop db-start db-stop db-ping
 
 POSTGRES_IMAGE := postgres
-POSTGRES_CONTAINER := learn-crud-postgres
+POSTGRES_CONTAINER := learn-postgres
 POSTGRES_HOST := localhost
 POSTGRES_USER := learn
 POSTGRES_PASSWORD := 123456
-NOW := $(shell date '+%Y-%m-%d_%H:%M:%S')
-TEMP_POSTGRES_DB_NAME := $(or $(POSTGRES_CONTAINER), "learn-postgres-$(NOW)")
-POSTGRES_DB_NAME := $(shell echo $(TEMP_POSTGRES_DB_NAME) | sed "s/-/_/g")
+POSTGRES_DB_NAME := crud_postgres
 
 jar-build:
 	mvn clean package
@@ -32,6 +30,9 @@ env-stop:
 	POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) \
 	POSTGRES_DB_NAME=$(POSTGRES_DB_NAME) \
 	docker-compose stop
+
+env-clean:
+	- docker rm -f $(POSTGRES_CONTAINER)
 
 db-start:
 	POSTGRES_IMAGE=$(POSTGRES_IMAGE) \
