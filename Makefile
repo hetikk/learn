@@ -27,5 +27,7 @@ kibana-verification-code:
 es-recreate-elastic-users-passwords:
 	@ docker exec $(ELASTICSEARCH_CONTAINER) ./bin/elasticsearch-setup-passwords auto
 
-es-init-learn-user:
-	@ docker exec $(ELASTICSEARCH_CONTAINER) ./bin/elasticsearch-users useradd $(ELASTICSEARCH_LEARN_USER) -p $(ELASTICSEARCH_LEARN_USER_PASSWORD) -r superuser
+es-ip:
+	@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(ELASTICSEARCH_CONTAINER)
+
+
