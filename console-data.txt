@@ -1,0 +1,238 @@
+# delete stores index
+DELETE stores
+
+# declare store index
+PUT stores
+{
+  "settings" : {
+    "number_of_shards" : 1,
+    "number_of_replicas": 1,
+    "analysis": {
+      "filter": {
+        "ru_stop": {
+          "type": "stop",
+          "stopwords": "_russian_"
+        },
+        "ru_stemmer": {
+          "type": "stemmer",
+          "language": "russian"
+        }
+      },
+      "analyzer": {
+        "default": {
+          "char_filter": [
+            "html_strip"
+          ],
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "ru_stop",
+            "ru_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "name": {
+        "type": "text",
+        "fields": {
+          "exact": {
+            "type": "keyword"
+          }
+        }
+      },
+      "description": {
+        "type": "text"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "categories": {
+        "type": "keyword"
+      },
+      "address": {
+        "type": "nested",
+        "dynamic": "strict",
+        "properties": {
+          "house": {
+            "type": "text",
+            "fields": {
+              "exact": {
+                "type": "keyword"
+              }
+            }
+          },
+          "street": {
+            "type": "text",
+            "index": true
+          },
+          "city": {
+            "type": "keyword",
+            "index": true
+          },
+          "country": {
+            "type": "keyword",
+            "index": true
+          },
+          "location": {
+            "type": "geo_point"
+          }
+        }
+      },
+      "phones": {
+        "type": "nested",
+        "dynamic": "strict",
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "null_value": "NULL"
+          },
+          "phone": {
+            "type": "keyword"
+          }
+        }
+      },
+      "sites": {
+        "type": "nested",
+        "dynamic": "strict",
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "null_value": "NULL"
+          },
+          "link": {
+            "type": "keyword"
+          }
+        }
+      },
+      "rating": {
+        "type": "float"
+      },
+      "created_at": {
+        "type": "date",
+        "format": "dd-MM-yyyy HH:mm:ss||yyyy-MM-dd||epoch_millis"
+      }
+    }
+  }
+}
+
+# create 1 store
+PUT stores/_doc/1
+{
+  "name": "Vintage",
+  "type": "FLOWERS",
+  "categories": [
+    "Цветы"
+  ],
+  "description": "Лучший в городе цветочный магазин",
+  "address": {
+    "house": "1",
+    "street": "Леонова",
+    "city": "Владикавказ",
+    "country": "Россия",
+    "location": {
+      "lat": 43.052496,
+      "lon": 44.654124
+    }
+  },
+  "phones": [
+    {
+      "name": null,
+      "phone": "+7 (928) 235-77-18"
+    }
+  ],
+  "sites": [
+    {
+      "name": "Instagram",
+      "link": "https://www.instagram.com/vintage_vld/"
+    }
+  ],
+  "rating": 4.7,
+  "created_at": "29-05-2022 21:00:00"
+}
+
+# create 2 store
+PUT stores/_doc/2
+{
+  "name": "Лаванда",
+  "type": "FLOWERS",
+  "description": "Магазин цветов с самым большим выбором готовых букетов в городе",
+  "categories": [
+    "Цветы"
+  ],
+  "address": {
+    "house": "7",
+    "street": "Пожарского",
+    "city": "Владикавказ",
+    "country": "Россия",
+    "location": {
+      "lat": 43.058840,
+      "lon": 44.666077
+    }
+  },
+  "phones": [
+    {
+      "phone": "+7 (928) 928-64-60"
+    }
+  ],
+  "sites": [
+    {
+      "name": "Instagram",
+      "link": "https://www.instagram.com/flower_vldz/"
+    },
+    {
+      "link": "https://lavanda-ulitsa-pozharskogo.clients.site/"
+    }
+  ],
+  "rating": 4.4,
+  "created_at": "1666173600"
+}
+
+# create 3 store
+PUT stores/_doc/3
+{
+  "name": "Le Chef",
+  "type": "EAT",
+  "description": "Вкуснейшая еда в городе",
+  "categories": [
+    "Бургеры",
+    "Вок",
+    "Салаты"
+  ],
+  "address": {
+    "house": "4Б",
+    "street": "Пожарского",
+    "city": "Владикавказ",
+    "country": "Россия",
+    "location": {
+      "lat": 43.058193,
+      "lon": 44.663193
+    }
+  },
+  "phones": [],
+  "sites": [],
+  "rating": 4,
+  "created_at": "2022-05-28"
+}
+
+# create 4 store
+PUT stores/_doc/4
+{
+  "name": "Шаурмания",
+  "type": "EAT",
+  "description": "Вкусная еда и быстрая доставка",
+  "categories": [
+    "Бургеры",
+    "Шаурма",
+    "Таук",
+    "Салаты"
+  ],
+  "address": {},
+  "phones": [],
+  "sites": [],
+  "rating": 5,
+  "created_at": "2022-05-28"
+}

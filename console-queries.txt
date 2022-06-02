@@ -1,0 +1,152 @@
+# get all stores
+GET stores/_search
+
+
+# get all stores without sources
+GET stores/_search?_source=false
+
+
+# get all stores only sources
+GET stores/_source/1
+
+
+# get store by ID
+GET stores/_doc/1
+
+
+# get store by ID only source
+GET stores/_source/1
+
+
+# get store by ID without source
+GET stores/_doc/1?_source=false
+  
+
+# sort 
+GET stores/_search
+{
+  "size": 10,
+  "_source": [
+    "name"
+  ],
+  "sort": [
+    {
+      "created_at": "asc"
+    }
+  ]
+}
+
+# filter
+GET stores/_search
+{
+  "_source": [
+    "name",
+    "categories"
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "categories": "Бургеры"
+          }
+        },
+        {
+          "bool": {
+            "must_not": [
+              {
+                "term": {
+                  "categories": "Вок"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+# full-text search
+GET stores/_search
+{
+  "_source": [
+    "name"
+  ],
+  "query": {
+    "match": {
+      "description": "вкусно"
+    }
+  }
+}
+
+
+GET _analyze
+{
+  "analyzer" : "standard",
+  "text" : "Конечно же я приду и поиграю с тобой"
+}
+
+
+GET _analyze
+{
+  "analyzer" : "russian",
+  "text" : "Пожарского"
+}
+
+
+GET stores/_search
+{
+  "_source": [
+    "name",
+    "address.street"
+  ],
+  "query": {
+    "simple_query_string": {
+      "query": "Пожарского"
+    }
+  }
+}
+
+GET stores/_search
+{
+  "_source": [
+    "name",
+    "address.street"
+  ],
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "address.street": "Пожарского"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET stores/_search?_source=description
+
+GET _cat/indices
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
