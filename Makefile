@@ -35,6 +35,9 @@ elasticsearch-restart:
 logstash-disable-es-monitoring:
 	@ docker exec -it $(LOGSTASH_CONTAINER) sed -i -r 's/^xpack\.monitoring\.elasticsearch\.hosts:/#\0/' ./config/logstash.yml
 
+logstash-cat-nginx:
+	@ docker exec -it $(LOGSTASH_CONTAINER) cat /usr/share/logstash/nginx.log
+
 logstash-restart:
 	@ docker restart $(LOGSTASH_CONTAINER)
 

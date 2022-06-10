@@ -24,7 +24,7 @@ services:
     networks:
       - elk
     volumes:
-      - ./data/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./config/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
 
@@ -45,8 +45,8 @@ services:
       - "80:80"
       - "3001:3001"
     volumes:
-      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/nginx/www:/nginx/www
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/nginx/www:/nginx/www
     networks:
       - elk
     depends_on:
