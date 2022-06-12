@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
@@ -40,9 +41,11 @@ func listen(path string) (net.Listener, error) {
 }
 
 func hello(ctx echo.Context) error {
-	return ctx.JSON(http.StatusOK, HTTPMessageBody{Message: "hello"})
+	now := time.Now().UTC()
+	return ctx.JSON(http.StatusOK, HTTPMessageBody{Message: "hello", Time: now.Format("2006-01-02 15:04:05")})
 }
 
 type HTTPMessageBody struct {
 	Message string
+	Time    string
 }
