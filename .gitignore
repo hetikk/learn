@@ -35,3 +35,7 @@ lombok.config
 **/out/
 **/build/
 *.class
+
+# Docker Extension
+/extension/ui/node_modules/
+/extension/vm/.idea
