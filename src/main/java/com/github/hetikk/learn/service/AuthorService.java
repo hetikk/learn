@@ -10,26 +10,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorService {
 
-    private final AuthorRepository authorRepository;
+    private static final Author AUTHOR = new Author();
+
+    static {
+        AUTHOR.id = 1L;
+        AUTHOR.name = "Test";
+    }
 
     public Author getOne(Long id) {
-        return authorRepository.getOne(id);
+        return AUTHOR;
     }
 
     public List<Author> getAll() {
-        return authorRepository.getAll();
+        return List.of(AUTHOR);
     }
 
     public Author create(Author author) {
-        return authorRepository.create(author);
+        return AUTHOR;
     }
 
     public Author update(Long id, Author author) {
-        return authorRepository.update(id, author);
+        return AUTHOR;
     }
 
     public void delete(Long id) {
-        authorRepository.delete(id);
     }
 
 }
