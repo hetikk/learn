@@ -1,9 +1,13 @@
 package com.github.hetikk.learn;
 
+import org.hibernate.Session;
+
 public class Application {
 
     public static void main(String[] args) {
-        System.out.println("Learn project!");
+
+        Session session = HibernateUtil.getSession();
+
     }
 
 }

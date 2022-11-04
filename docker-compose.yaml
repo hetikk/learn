@@ -5,13 +5,13 @@ networks:
     driver: bridge
 
 services:
-  nginx:
-    image: nginx
-    container_name: "${NGINX_CONTAINER}"
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: "learn"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     ports:
-      - "80:80"
-    volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./docker/nginx/www:/nginx/www
+      - "5432:5432"
     networks:
       - learn-network
